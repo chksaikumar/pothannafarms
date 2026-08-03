@@ -1,0 +1,163 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    match /users/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow create: if isAuthenticated() && request.auth.uid == userId;
+      allow update: if isOwner(userId) || isAdmin();
+      allow delete: if isAdmin();
+      
+      match /addresses/{addressId} {
+        allow read: if isOwner(userId);
+        allow create: if isOwner(userId);
+        allow update: if isOwner(userId);
+        allow delete: if isOwner(userId);
+      }
+    }
+    
+    match /categories/{categoryId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    
+    match /products/{productId} {
+      allow read: if resource.data.active == true || isAdmin();
+      allow create: if isAdmin();
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+      
+      match /variants/{variantId} {
+        allow read: if get(/databases/$(database)/documents/products/$(productId)).data.active == true || isAdmin();
+        allow write: if isAdmin();
+      }
+      
+      match /reviews/{reviewId} {
+        allow read: if resource.data.approved == true || isAdmin();
+        allow create: if isOwner(request.resource.data.userId);
+        allow update: if isAdmin();
+        allow delete: if isAdmin();
+      }
+    }
+    
+    match /carts/{userId} {
+      allow read: if isOwner(userId);
+      allow create: if isOwner(userId);
+      allow update: if isOwner(userId);
+      allow delete: if isOwner(userId);
+      
+      match /items/{itemId} {
+        allow read: if isOwner(userId);
+        allow create: if isOwner(userId);
+        allow update: if isOwner(userId);
+        allow delete: if isOwner(userId);
+      }
+    }
+    
+    match /wishlists/{userId} {
+      allow read: if isOwner(userId);
+      allow create: if isOwner(userId);
+      allow update: if isOwner(userId);
+      allow delete: if isOwner(userId);
+      
+      match /items/{itemId} {
+        allow read: if isOwner(userId);
+        allow create: if isOwner(userId);
+        allow update: if isOwner(userId);
+        allow delete: if isOwner(userId);
+      }
+    }
+    
+    match /orders/{orderId} {
+      allow read: if isAdmin() || (isAuthenticated() && resource.data.userId == request.auth.uid);
+      allow create: if false;
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+      
+      match /items/{itemId} {
+        allow read: if isAdmin() || (isAuthenticated() && get(/databases/$(database)/documents/orders/$(orderId)).data.userId == request.auth.uid);
+        allow write: if isAdmin();
+      }
+    }
+    
+    match /payments/{paymentId} {
+      allow read: if isAdmin() || (isAuthenticated() && resource.data.userId == request.auth.uid);
+      allow create: if false;
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+    
+    match /coupons/{couponId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+    
+    match /couponUsages/{usageId} {
+      allow read: if isAdmin() || (isAuthenticated() && resource.data.userId == request.auth.uid);
+      allow create: if false;
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+    
+    match /subscriptions/{subscriptionId} {
+      allow read: if isAdmin() || (isAuthenticated() && resource.data.userId == request.auth.uid);
+      allow create: if isAuthenticated() && request.resource.data.userId == request.auth.uid;
+      allow update: if isAdmin() || (isAuthenticated() && resource.data.userId == request.auth.uid);
+      allow delete: if isAdmin() || (isAuthenticated() && resource.data.userId == request.auth.uid);
+      
+      match /deliveries/{deliveryId} {
+        allow read: if isAdmin() || (isAuthenticated() && get(/databases/$(database)/documents/subscriptions/$(subscriptionId)).data.userId == request.auth.uid);
+        allow write: if isAdmin();
+      }
+    }
+    
+    match /deliveryZones/{zoneId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    
+    match /deliveryTimeSlots/{slotId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    
+    match /banners/{bannerId} {
+      allow read: if resource.data.active == true || isAdmin();
+      allow write: if isAdmin();
+    }
+    
+    match /notifications/{notificationId} {
+      allow read: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      allow create: if isAdmin();
+      allow update: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      allow delete: if isAdmin();
+    }
+    
+    match /adminActivityLogs/{logId} {
+      allow read: if isAdmin();
+      allow write: if isAdmin();
+    }
+    
+    match /settings/{settingId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    
+    match /inventoryMovements/{movementId} {
+      allow read: if isAdmin();
+      allow write: if isAdmin();
+    }
+  }
+}

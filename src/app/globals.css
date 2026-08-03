@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #fcf9f8;
+  --color-foreground: #1b1c1c;
+  --color-primary: #012d1d;
+  --color-primary-foreground: #ffffff;
+  --color-primary-container: #1b4332;
+  --color-on-primary-container: #86af99;
+  --color-secondary: #1f6d1a;
+  --color-secondary-foreground: #ffffff;
+  --color-secondary-container: #a4f792;
+  --color-on-secondary-container: #267320;
+  --color-tertiary: #3b1f00;
+  --color-tertiary-foreground: #ffffff;
+  --color-tertiary-container: #56340e;
+  --color-on-tertiary-container: #cd9d6d;
+  --color-error: #ba1a1a;
+  --color-error-foreground: #ffffff;
+  --color-surface: #fcf9f8;
+  --color-surface-dim: #dcd9d9;
+  --color-surface-bright: #fcf9f8;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f6f3f2;
+  --color-surface-container: #f0eded;
+  --color-surface-container-high: #eae7e7;
+  --color-surface-container-highest: #e4e2e1;
+  --color-on-surface: #1b1c1c;
+  --color-on-surface-variant: #414844;
+  --color-inverse-surface: #303030;
+  --color-inverse-on-surface: #f3f0f0;
+  --color-outline: #717973;
+  --color-outline-variant: #c1c8c2;
+  --color-surface-tint: #3f6653;
+  --color-muted: #dcd9d9;
+  --color-muted-foreground: #414844;
+  --color-border: #c1c8c2;
+  --color-accent: #1b4332;
+  --color-accent-foreground: #ffffff;
+  --font-family-display: "Libre Caslon Text", serif;
+  --font-family-body: "Inter", sans-serif;
+  --font-family-mono: "JetBrains Mono", monospace;
+  --radius-sm: 0.25rem;
+  --radius-default: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+  --spacing-base: 8px;
+  --spacing-container-max: 1280px;
+  --spacing-gutter: 24px;
+  --spacing-margin-mobile: 16px;
+  --spacing-stack-sm: 4px;
+  --spacing-stack-md: 12px;
+  --spacing-stack-lg: 32px;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-family-body);
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors;
+  }
+  .btn-secondary {
+    @apply border border-primary text-primary px-6 py-3 rounded-lg font-semibold hover:bg-primary hover:text-primary-foreground transition-colors;
+  }
+  .card {
+    @apply bg-white rounded-xl border border-border overflow-hidden hover:shadow-lg transition-shadow;
+  }
+  .product-image {
+    @apply aspect-square bg-surface-container flex items-center justify-center;
+  }
+}
