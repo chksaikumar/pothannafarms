@@ -92,7 +92,7 @@ export interface Product {
 
 export interface CartItem {
   id: string
-  userId: string
+  userId?: string
   productId: string
   variantId?: string
   productName: string
@@ -102,8 +102,8 @@ export interface CartItem {
   discountPrice?: number
   quantity: number
   total: number
-  createdAt: Date
-  updatedAt: Date
+  createdAt?: Date
+  updatedAt?: Date
 }
 
 export interface WishlistItem {
