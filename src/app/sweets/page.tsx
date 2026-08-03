@@ -287,7 +287,7 @@ export default function SweetsPage() {
       <footer className="bg-[#012d1d] text-white py-12 border-t-0 mt-auto">
         <div className="max-w-[1280px] mx-auto px-6 lg:px-10 grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="font-display text-xl font-bold mb-2">Pothana Farms</h3>
+            <h3 className="font-display text-xl font-bold mb-2">Gorla Pothanna Farms</h3>
             <p className="font-body text-xs text-[#a5d0b9]">Rooted in Tradition, Delivered with Care.</p>
           </div>
           <div>

@@ -29,7 +29,7 @@ export default function Navigation() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
             <span className="text-2xl font-bold text-primary tracking-tight font-display text-[26px]">
-              🌿 Pothana Farms
+              🌿 Gorla Pothanna Farms
             </span>
           </Link>
 

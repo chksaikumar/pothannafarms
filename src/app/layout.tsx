@@ -11,7 +11,7 @@ const libreCaslon = Libre_Caslon_Text({
 })
 
 export const metadata: Metadata = {
-  title: 'Pothana Farms - Fresh from Farm to Table',
+  title: 'Gorla Pothanna Farms - Fresh from Farm to Table',
   description: 'Premium organic produce delivered to your doorstep',
 }
 

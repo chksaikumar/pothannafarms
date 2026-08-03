@@ -127,10 +127,10 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
             <div>
               <h3 className="font-display text-xl font-bold text-white mb-3 flex items-center gap-2">
-                <span>🌿</span> Pothana Farms
+                <span>🌿</span> Gorla Pothanna Farms
               </h3>
               <p className="font-body text-xs text-emerald-200/80 leading-relaxed">
-                © 2024 Pothana Farms. Rooted in Tradition, Delivered with Care.
+                © 2024 Gorla Pothanna Farms. Rooted in Tradition, Delivered with Care.
               </p>
             </div>
 
